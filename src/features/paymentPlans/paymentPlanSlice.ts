@@ -19,13 +19,25 @@ const initialState: PaymentPlanState = {
   mutationError: null,
 };
 
+function extractPlanList(payload: unknown): PaymentPlan[] {
+  if (Array.isArray(payload)) return payload;
+  if (!payload || typeof payload !== "object") return [];
+
+  const record = payload as Record<string, unknown>;
+  for (const value of [record.data, record.plans, record.items, record.results]) {
+    if (Array.isArray(value)) return value as PaymentPlan[];
+  }
+
+  return [];
+}
+
 // Admin raw list (base-currency prices) — matches GET /payment-plans/raw
 export const fetchPaymentPlans = createAsyncThunk<PaymentPlan[], void, { rejectValue: string }>(
   "paymentPlans/fetchAll",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await apiClient.get<ApiResponse<PaymentPlan[]>>("/payment-plans/raw");
-      return data.data;
+      const { data } = await apiClient.get<ApiResponse<PaymentPlan[]> | PaymentPlan[]>("/payment-plans/raw");
+      return extractPlanList(data);
     } catch (err: any) {
       return rejectWithValue(err?.response?.data?.body ?? "Failed to load payment plans");
     }
@@ -89,7 +101,7 @@ const paymentPlanSlice = createSlice({
       })
       .addCase(fetchPaymentPlans.fulfilled, (state, action: PayloadAction<PaymentPlan[]>) => {
         state.status = "succeeded";
-        state.plans = action.payload;
+        state.plans = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchPaymentPlans.rejected, (state, action) => {
         state.status = "failed";

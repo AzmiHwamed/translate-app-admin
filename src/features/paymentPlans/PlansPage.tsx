@@ -9,6 +9,7 @@ import {
   clearMutationError,
 } from "./paymentPlanSlice";
 import type { Currency, CreatePaymentPlanPayload, PaymentPlan } from "./paymentPlanTypes";
+import type { ApiResponse } from "../common/ApiResponse";
 
 const DURATION_COLORS = [
   { dot: "bg-accent", chip: "bg-accent-soft text-accent" },
@@ -29,6 +30,18 @@ const emptyForm: CreatePaymentPlanPayload = {
   isActive: true,
 };
 
+function extractCurrencyList(payload: unknown): Currency[] {
+  if (Array.isArray(payload)) return payload;
+  if (!payload || typeof payload !== "object") return [];
+
+  const record = payload as Record<string, unknown>;
+  for (const value of [record.data, record.currencies, record.items, record.results]) {
+    if (Array.isArray(value)) return value as Currency[];
+  }
+
+  return [];
+}
+
 export function PlansPage() {
   const dispatch = useAppDispatch();
   const { plans, status, error, mutationStatus, mutationError } = useAppSelector((state) => state.paymentPlans);
@@ -44,8 +57,8 @@ export function PlansPage() {
   useEffect(() => {
     dispatch(fetchPaymentPlans());
     apiClient
-      .get<Currency[]>("/currencies")
-      .then(({ data }) => setCurrencies(data))
+      .get<ApiResponse<Currency[]> | Currency[]>("/currencies")
+      .then(({ data }) => setCurrencies(extractCurrencyList(data)))
       .catch(() => setCurrencies([]));
   }, [dispatch]);
 
