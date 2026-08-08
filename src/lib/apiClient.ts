@@ -24,10 +24,14 @@ export const tokenStorage = {
   },
 };
 
+function isAuthenticationRequest(url?: string) {
+  return url === "/auth/login" || url === "/auth/refresh" || url?.endsWith("/auth/login") || url?.endsWith("/auth/refresh");
+}
+
 // Attach idToken to every request
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = tokenStorage.getIdToken();
-  if (token) {
+  if (token && !isAuthenticationRequest(config.url)) {
     config.headers.set("Authorization", `Bearer ${token}`);
   }
   return config;
@@ -60,7 +64,12 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as (InternalAxiosRequestConfig & { _retry?: boolean }) | undefined;
 
-    if (error.response?.status !== 401 || !originalRequest || originalRequest._retry) {
+    if (
+      error.response?.status !== 401 ||
+      !originalRequest ||
+      originalRequest._retry ||
+      isAuthenticationRequest(originalRequest.url)
+    ) {
       return Promise.reject(error);
     }
 
