@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:restart": "npm run build && pm2 restart translate-app-admin"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
