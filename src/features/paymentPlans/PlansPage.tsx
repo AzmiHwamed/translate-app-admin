@@ -37,6 +37,10 @@ function extractCurrencyList(payload: unknown): Currency[] {
   const record = payload as Record<string, unknown>;
   for (const value of [record.data, record.currencies, record.items, record.results]) {
     if (Array.isArray(value)) return value as Currency[];
+    if (value && typeof value === "object") {
+      const nestedList = extractCurrencyList(value);
+      if (nestedList.length > 0) return nestedList;
+    }
   }
 
   return [];
@@ -406,7 +410,7 @@ export function PlansPage() {
                   <option value="" disabled>
                     Select currency…
                   </option>
-                  {currencies.map((c) => (
+                  {(Array.isArray(currencies) ? currencies : []).map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.code} — {c.name}
                     </option>
