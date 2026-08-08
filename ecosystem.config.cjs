@@ -2,6 +2,7 @@ module.exports = {
   apps: [
     {
       name: "translate-app-admin",
+      cwd: __dirname,
       script: "serve",
       env: {
         PM2_SERVE_PATH: "dist",
