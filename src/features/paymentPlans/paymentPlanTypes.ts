@@ -8,7 +8,7 @@ export interface PaymentPlan {
   id: string;
   name: string;
   description: string;
-  durationMonths: number;
+  tokenCount: number;
   basePrice: number;
   baseCurrencyId: string;
   baseCurrency?: Currency;
@@ -18,7 +18,7 @@ export interface PaymentPlan {
 export interface CreatePaymentPlanPayload {
   name: string;
   description: string;
-  durationMonths: number;
+  tokenCount: number;
   basePrice: number;
   baseCurrencyId: string;
   isActive?: boolean;

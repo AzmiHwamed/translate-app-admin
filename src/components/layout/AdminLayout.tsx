@@ -4,7 +4,8 @@ import { useAppSelector } from "../../app/hooks";
 
 const NAV_ITEMS = [
   { label: "Dashboard Overview", path: "/" },
-  { label: "Payment Plans", path: "/plans" },
+  { label: "Token deals", path: "/plans" },
+  { label: "AI service pricing", path: "/ai-pricing" },
   { label: "Currencies", path: "/currencies" },
   { label: "FAQs", path: "/faqs" },
   { label: "Customer Service", path: "/chat" },

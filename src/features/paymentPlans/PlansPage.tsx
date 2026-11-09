@@ -24,7 +24,7 @@ const PAGE_SIZE = 20;
 const emptyForm: CreatePaymentPlanPayload = {
   name: "",
   description: "",
-  durationMonths: 1,
+  tokenCount: 30,
   basePrice: 0,
   baseCurrencyId: "",
   isActive: true,
@@ -114,7 +114,7 @@ export function PlansPage() {
     setForm({
       name: plan.name,
       description: plan.description,
-      durationMonths: plan.durationMonths,
+      tokenCount: plan.tokenCount,
       basePrice: Number(plan.basePrice),
       baseCurrencyId: plan.baseCurrencyId,
       isActive: plan.isActive,
@@ -159,14 +159,14 @@ export function PlansPage() {
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-lg shadow-slate-900/5 lg:col-span-2">
           <div className="mb-5 flex items-center justify-between">
             <div>
-              <h2 className="m-0 text-sm font-semibold text-gray-900">Payment Plans</h2>
-              <p className="m-0 mt-0.5 text-xs text-gray-400">Manage subscription tiers and pricing</p>
+              <h2 className="m-0 text-sm font-semibold text-gray-900">Token deals</h2>
+              <p className="m-0 mt-0.5 text-xs text-gray-400">Manage token packages and their prices</p>
             </div>
             <button
               onClick={openCreateModal}
               className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-accent/30 transition-transform hover:scale-[1.03]"
             >
-              + New Plan
+              + New deal
             </button>
           </div>
 
@@ -234,7 +234,7 @@ export function PlansPage() {
                           <span
                             className={`mt-1.5 inline-block rounded-full px-2 py-0.5 text-[11px] font-medium ${palette.chip}`}
                           >
-                            {plan.durationMonths} {plan.durationMonths === 1 ? "month" : "months"}
+                            {plan.tokenCount} {plan.tokenCount === 1 ? "token" : "tokens"}
                           </span>
                         </div>
                       </div>
@@ -308,10 +308,10 @@ export function PlansPage() {
         <div className="flex flex-col gap-4">
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-lg shadow-slate-900/5">
             <h2 className="m-0 mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900">
-              <span className="text-base">📊</span> Plan Summary
+              <span className="text-base">📊</span> Deal summary
             </h2>
             <div className="grid grid-cols-2 gap-4">
-              <SummaryStat icon="📦" label="Total Plans" value={plans.length} loading={isLoading} />
+              <SummaryStat icon="📦" label="Total deals" value={plans.length} loading={isLoading} />
               <SummaryStat icon="✅" label="Active" value={activeCount} loading={isLoading} />
               <SummaryStat
                 icon="💰"
@@ -376,13 +376,13 @@ export function PlansPage() {
               </Field>
 
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Duration (months)">
+                <Field label="Tokens granted">
                   <input
                     required
                     type="number"
                     min={1}
-                    value={form.durationMonths}
-                    onChange={(e) => setForm({ ...form, durationMonths: Number(e.target.value) })}
+                    value={form.tokenCount}
+                    onChange={(e) => setForm({ ...form, tokenCount: Number(e.target.value) })}
                     className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-accent"
                   />
                 </Field>

@@ -8,6 +8,7 @@ import { CurrencyPage } from "./features/currencies/CurrencyPage";
 import { PlansPage } from "./features/paymentPlans/PlansPage";
 import { FaqsPage } from "./features/faqs/FaqsPage";
 import { ChatPage } from "./features/chat/ChatPage";
+import { AiPricingPage } from "./features/aiPricing/AiPricingPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/users" element={<UsersPage />} />
             <Route path="/currencies" element={<CurrencyPage />} />
             <Route path="/plans" element={<PlansPage />} />
+            <Route path="/ai-pricing" element={<AiPricingPage />} />
             <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/chat" element={<ChatPage />} />
           </Route>
