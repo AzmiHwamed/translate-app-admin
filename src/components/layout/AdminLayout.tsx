@@ -147,14 +147,3 @@ export function AdminLayout() {
   );
 }
 
-function HeaderIconButton({ icon, label }: { icon: string; label: string }) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-sm transition-colors hover:bg-white/20"
-    >
-      {icon}
-    </button>
-  );
-}
