@@ -57,7 +57,7 @@ export function AdminLayout() {
 
           <div className="relative z-20 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <img src="src\assets\logo.png" className="w-20" />
+              {/* <img src="src\assets\logo.png" className="w-20" /> */}
               <span className="text-3xl font-semibold tracking-tight">Translate App</span>
             </div>
             <div className="flex items-center gap-3">
