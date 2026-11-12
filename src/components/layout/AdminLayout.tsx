@@ -57,22 +57,11 @@ export function AdminLayout() {
 
           <div className="relative z-20 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <img src="src\assets\image.png" className="w-20" />
-              <span className="text-lg font-semibold tracking-tight">Translate App</span>
+              <img src="src\assets\logo.png" className="w-20" />
+              <span className="text-3xl font-semibold tracking-tight">Translate App</span>
             </div>
-
-            <div className="hidden max-w-md flex-1 items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white/70 backdrop-blur md:flex">
-              <span aria-hidden>🔍</span>
-              <input
-                placeholder="Search something..."
-                className="w-full bg-transparent outline-none placeholder:text-white/50"
-              />
-            </div>
-
             <div className="flex items-center gap-3">
-              <HeaderIconButton icon="🔔" label="Notifications" />
-              <HeaderIconButton icon="💬" label="Messages" />
-              <HeaderIconButton icon="🎯" label="Activity" />
+              
               <div className="flex items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-xs font-semibold">
                   {(user?.displayName ?? "A").charAt(0).toUpperCase()}

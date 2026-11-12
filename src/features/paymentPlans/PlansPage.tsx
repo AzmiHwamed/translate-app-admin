@@ -164,7 +164,7 @@ export function PlansPage() {
             </div>
             <button
               onClick={openCreateModal}
-              className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-accent/30 transition-transform hover:scale-[1.03]"
+              className="rounded-full bg-accent px-4 py-2 text-xs font-semibold text-black shadow-sm shadow-accent/30 transition-transform hover:scale-[1.03]"
             >
               + New deal
             </button>
